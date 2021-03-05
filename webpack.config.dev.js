@@ -2,10 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
-const {CleanWebpackPlugin}= require('clean-webpack-plugin');
 module.exports = {
     // mode: 'production', // LE INDICO EL MODO EXPLICITAMENTE
     entry: './src/index.js', // el punto de entrada de mi aplicación
@@ -17,6 +14,8 @@ module.exports = {
         assetModuleFilename: 'assets/images/[hash][ext][query]'
         // EL NOMBRE DEL ARCHIVO FINAL,
     },
+    mode: 'development',
+    watch: true, //LUEGO DE TERMINAR DE USAR ESTE COMANDO PRESIONA CTRL+C EN CONSOLA
     resolve: {
         extensions: ['.js'], // LOS ARCHIVOS QUE WEBPACK VA A LEER
         alias:{
@@ -83,13 +82,5 @@ module.exports = {
             ]
         }),
         new Dotenv(),
-        new CleanWebpackPlugin(),
     ],
-    optimization:{
-        minimize: true,
-        minimizer:[
-            new CssMinimizerPlugin(),
-            new TerserPlugin(),
-        ]
-    }
-}   
+} 
