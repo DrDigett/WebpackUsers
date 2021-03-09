@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 module.exports = {
     // mode: 'production', // LE INDICO EL MODO EXPLICITAMENTE
     entry: './src/index.js', // el punto de entrada de mi aplicación
@@ -15,7 +17,8 @@ module.exports = {
         // EL NOMBRE DEL ARCHIVO FINAL,
     },
     mode: 'development',
-    watch: true, //LUEGO DE TERMINAR DE USAR ESTE COMANDO PRESIONA CTRL+C EN CONSOLA
+    devtool: 'source-map',
+    //watch: true, //LUEGO DE TERMINAR DE USAR ESTE COMANDO PRESIONA CTRL+C EN CONSOLA
     resolve: {
         extensions: ['.js'], // LOS ARCHIVOS QUE WEBPACK VA A LEER
         alias:{
@@ -82,5 +85,12 @@ module.exports = {
             ]
         }),
         new Dotenv(),
+        new BundleAnalyzerPlugin(),
     ],
+    devServer:{
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        historyApiFallback: true,
+        port:3006,
+    }
 } 
